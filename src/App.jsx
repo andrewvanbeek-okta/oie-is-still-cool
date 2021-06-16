@@ -16,11 +16,11 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import { Container } from 'semantic-ui-react';
 import config from './config';
-import Home from './Home';
-import CustomLoginComponent from './Login';
-import Messages from './Messages';
-import Navbar from './Navbar';
-import Profile from './Profile';
+import Home from './components/Home';
+import CustomLoginComponent from './components/Login';
+import Messages from './components/Messages';
+import Navbar from './components/Navbar';
+import Profile from './components/Profile';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
