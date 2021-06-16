@@ -29,7 +29,7 @@ const Navbar = () => {
           <Menu.Item header>
             <Image size="mini" src="/react.svg" />
             &nbsp;
-            <Link to="/">Okta-React Sample Project</Link>
+            <Link to="/">oie is cool</Link>
           </Menu.Item>
           {authState.isAuthenticated && (
           <Menu.Item id="messages-button">
