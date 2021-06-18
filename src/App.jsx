@@ -15,12 +15,30 @@ import { Route, useHistory, Switch } from 'react-router-dom';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import { Container } from 'semantic-ui-react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import config from './config';
 import Home from './components/Home';
 import CustomLoginComponent from './components/Login';
 import Messages from './components/Messages';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
+// import MyRotatingBox from './components/MyRotatingBox';
+
+function MyRotatingBox() {
+  const myMesh = React.useRef();
+
+  useFrame(({ clock }) => {
+    const a = clock.getElapsedTime();
+    myMesh.current.rotation.x = a;
+  });
+
+  return (
+    <mesh ref={myMesh}>
+      <boxBufferGeometry />
+      <meshPhongMaterial color="royalblue" />
+    </mesh>
+  );
+}
 
 const oktaAuth = new OktaAuth(config.oidc);
 
@@ -37,6 +55,11 @@ const App = () => {
       oktaAuth={oktaAuth}
       onAuthRequired={customAuthHandler}
     >
+      <Canvas>
+        <MyRotatingBox />
+        <ambientLight intensity={0.1} />
+        <directionalLight />
+      </Canvas>
       <Navbar />
       <Container text style={{ marginTop: '7em' }}>
         <Switch>
