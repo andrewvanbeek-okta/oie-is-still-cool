@@ -10,33 +10,72 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSprings, a } from '@react-spring/three';
 import { Route, useHistory, Switch } from 'react-router-dom';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import { Container } from 'semantic-ui-react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
+import * as THREE from 'three';
 import config from './config';
 import Home from './components/Home';
 import CustomLoginComponent from './components/Login';
 import Messages from './components/Messages';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
-// import MyRotatingBox from './components/MyRotatingBox';
+import './index.css';
 
-function MyRotatingBox() {
-  const myMesh = React.useRef();
+const number = 15;
+const colors = ['#00003f', '#00008b', '#ededff', '#e0feff', '#e0feff'];
+const random = (i) => {
+  const r = Math.random();
+  return {
+    position: [100 - Math.random() * 200, 100 - Math.random() * 200, i * 1.5],
+    color: colors[Math.round(Math.random() * (colors.length - 1))],
+    scale: [1 + r * 14, 1 + r * 14, 1],
+    rotation: [0, 0, THREE.Math.degToRad(Math.round(Math.random()) * 45)],
+  };
+};
 
-  useFrame(({ clock }) => {
-    const a = clock.getElapsedTime();
-    myMesh.current.rotation.x = a;
-  });
+const data = new Array(number).fill().map(() => {
+  const yo = Math.random();
+  return {
+    color: colors[Math.round(yo * (colors.length - 1))],
+    args: [0.1 + Math.random() * 9, 0.1 + Math.random() * 9, 10],
+  };
+});
 
+function Content() {
+  const [springs, set] = useSprings(number, (i) => ({
+    from: random(i),
+    ...random(i),
+    config: { mass: 20, tension: 150, friction: 50 },
+  }));
+  useEffect(() => undefined, setInterval(() => set((i) => ({ ...random(i), delay: i * 40 })), 3000), []);
+  return data.map((d, index) => (
+    <a.mesh key={0} {...springs[index]} castShadow receiveShadow>
+      <boxBufferGeometry attach="geometry" args={d.args} />
+      <a.meshStandardMaterial attach="material" color={springs[index].color} roughness={0.75} metalness={0.5} />
+    </a.mesh>
+  ));
+}
+
+function Lights() {
   return (
-    <mesh ref={myMesh}>
-      <boxBufferGeometry />
-      <meshPhongMaterial color="royalblue" />
-    </mesh>
+    <group>
+      <pointLight intensity={0.3} />
+      <ambientLight intensity={2} />
+      <spotLight
+        castShadow
+        intensity={0.2}
+        angle={Math.PI / 7}
+        position={[150, 150, 250]}
+        penumbra={1}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
+      />
+    </group>
   );
 }
 
@@ -55,11 +94,6 @@ const App = () => {
       oktaAuth={oktaAuth}
       onAuthRequired={customAuthHandler}
     >
-      <Canvas>
-        <MyRotatingBox />
-        <ambientLight intensity={0.1} />
-        <directionalLight />
-      </Canvas>
       <Navbar />
       <Container text style={{ marginTop: '7em' }}>
         <Switch>
@@ -70,6 +104,10 @@ const App = () => {
           <SecureRoute path="/profile" component={Profile} />
         </Switch>
       </Container>
+      <Canvas linear shadows camera={{ position: [0, 0, 100], fov: 100 }}>
+        <Lights />
+        <Content />
+      </Canvas>
     </Security>
   );
 };
