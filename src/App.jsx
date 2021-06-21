@@ -15,7 +15,6 @@ import { useSprings, a } from '@react-spring/three';
 import { Route, useHistory, Switch } from 'react-router-dom';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
-import { Container } from 'semantic-ui-react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import config from './config';
@@ -26,7 +25,7 @@ import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 import './index.css';
 
-const number = 15;
+const number = 50;
 const colors = ['#00003f', '#00008b', '#ededff', '#e0feff', '#e0feff'];
 const random = (i) => {
   const r = Math.random();
@@ -50,12 +49,12 @@ function Content() {
   const [springs, set] = useSprings(number, (i) => ({
     from: random(i),
     ...random(i),
-    config: { mass: 20, tension: 150, friction: 50 },
+    config: { mass: 200, tension: 20, friction: 50 },
   }));
-  useEffect(() => undefined, setInterval(() => set((i) => ({ ...random(i), delay: i * 40 })), 3000), []);
+  useEffect(() => undefined, setInterval(() => set((i) => ({ ...random(i), delay: i * 4 })), 3000), []);
   return data.map((d, index) => (
     <a.mesh key={0} {...springs[index]} castShadow receiveShadow>
-      <boxBufferGeometry attach="geometry" args={d.args} />
+      <sphereGeometry attach="geometry" args={[1, 16, 16]} />
       <a.meshStandardMaterial attach="material" color={springs[index].color} roughness={0.75} metalness={0.5} />
     </a.mesh>
   ));
@@ -64,11 +63,11 @@ function Content() {
 function Lights() {
   return (
     <group>
-      <pointLight intensity={0.3} />
+      <pointLight intensity={0.1} />
       <ambientLight intensity={2} />
       <spotLight
         castShadow
-        intensity={0.2}
+        intensity={0.1}
         angle={Math.PI / 7}
         position={[150, 150, 250]}
         penumbra={1}
@@ -95,19 +94,21 @@ const App = () => {
       onAuthRequired={customAuthHandler}
     >
       <Navbar />
-      <Container text style={{ marginTop: '7em' }}>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/login/callback" component={LoginCallback} />
-          <Route path="/login" component={CustomLoginComponent} />
-          <SecureRoute path="/messages" component={Messages} />
-          <SecureRoute path="/profile" component={Profile} />
-        </Switch>
-      </Container>
+      {/* This is where i took out the container component */}
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/login/callback" component={LoginCallback} />
+        <Route path="/login" component={CustomLoginComponent} />
+        <SecureRoute path="/messages" component={Messages} />
+        <SecureRoute path="/profile" component={Profile} />
+      </Switch>
       <Canvas linear shadows camera={{ position: [0, 0, 100], fov: 100 }}>
         <Lights />
         <Content />
       </Canvas>
+      <div className="overlay">
+        <CustomLoginComponent />
+      </div>
     </Security>
   );
 };

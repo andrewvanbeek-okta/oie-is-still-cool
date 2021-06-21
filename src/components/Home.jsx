@@ -12,11 +12,8 @@
 
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 
 const Home = () => {
-  const history = useHistory();
   const { authState, oktaAuth } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
 
@@ -30,10 +27,6 @@ const Home = () => {
       });
     }
   }, [authState, oktaAuth]); // Update if authState changes
-
-  const login = async () => {
-    history.push('/login');
-  };
 
   if (authState.isPending) {
     return (
@@ -57,14 +50,6 @@ const Home = () => {
           </p>
         </div>
         )}
-
-        {!authState.isAuthenticated
-        && (
-        <div>
-          <Button id="login-button" primary onClick={login}>Login</Button>
-        </div>
-        )}
-
       </div>
     </div>
   );
