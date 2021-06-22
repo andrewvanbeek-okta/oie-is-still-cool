@@ -25,9 +25,9 @@ const Dashboard = () => {
   const cards = [];
   const data = {
     img: 'https://i.pinimg.com/originals/32/e2/41/32e2413585f1d2e0333c7dee3c4808bf.jpg',
-    name: 'Mark',
-    meta: 'Est. 2021',
-    description: 'This is a description',
+    name: 'My Sign-in Design',
+    meta: 'Created by Mark Vong',
+    description: 'This design was inspired by all things fluffy and cute.',
     link: '#',
   };
   for (let i = 0; i < 20; i += 1) {
@@ -46,6 +46,7 @@ const Dashboard = () => {
   // If user is being authenticated...
   if (authState.isPending) return <div>Loading...</div>;
 
+  // TODO: Add auth and make /dashboard a secureroute
   return (
     <div style={style} className="dashboard">
       {cards}
