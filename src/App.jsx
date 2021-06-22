@@ -11,6 +11,7 @@ import Profile from './components/Profile';
 import Landing from './components/LoginContainer';
 import AnimatedBackground from './components/AnimatedBackground';
 import './index.css';
+import Dashboard from './components/Dashboard';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
@@ -23,10 +24,7 @@ const App = () => {
   };
 
   return (
-    <Security
-      oktaAuth={oktaAuth}
-      onAuthRequired={customAuthHandler}
-    >
+    <Security oktaAuth={oktaAuth} onAuthRequired={customAuthHandler}>
       <Navbar />
       {/* This is where i took out the container component */}
       <Switch>
@@ -35,6 +33,7 @@ const App = () => {
         <Route path="/login" component={CustomLoginComponent} />
         <SecureRoute path="/messages" component={Messages} />
         <SecureRoute path="/profile" component={Profile} />
+        <Route path="/dashboard" component={Dashboard} />
       </Switch>
       <AnimatedBackground />
       <div className="overlay">
