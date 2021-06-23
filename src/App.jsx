@@ -43,7 +43,7 @@ const App = () => {
           <Route path="/login" component={CustomLoginComponent} />
           <SecureRoute path="/messages" component={Messages} />
           <SecureRoute path="/profile" component={Profile} />
-          <Route path="/dashboard" component={Dashboard} />
+          <SecureRoute path="/dashboard" component={Dashboard} />
         </Switch>
       </Container>
     </Security>
