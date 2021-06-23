@@ -12,14 +12,12 @@
 
 import { useOktaAuth } from '@okta/okta-react';
 import React from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Icon, Image, Menu } from 'semantic-ui-react';
 
 const Navbar = () => {
-  const history = useHistory();
   const { authState, oktaAuth } = useOktaAuth();
 
-  const login = async () => history.push('/login');
   const logout = async () => oktaAuth.signOut();
 
   return (
@@ -43,7 +41,6 @@ const Navbar = () => {
             </Menu.Item>
           )}
           {authState.isAuthenticated && <Menu.Item id="logout-button" onClick={logout}>Logout</Menu.Item>}
-          {!authState.isPending && !authState.isAuthenticated && <Menu.Item onClick={login}>Login</Menu.Item>}
         </Container>
       </Menu>
     </div>

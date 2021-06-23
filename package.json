@@ -6,6 +6,8 @@
     "@okta/okta-auth-js": "^4.7.1",
     "@okta/okta-react": "^4.1.0",
     "@okta/okta-signin-widget": "^5.4.0",
+    "@react-spring/three": "^9.2.3",
+    "@react-three/fiber": "^7.0.1",
     "colors": "^1.4.0",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
@@ -16,7 +18,8 @@
     "react-scripts": "^4.0.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "three": "^0.129.0"
   },
   "scripts": {
     "start": "cross-env PORT=8080 react-app-rewired start",

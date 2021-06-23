@@ -12,12 +12,8 @@
 
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Button, Header } from 'semantic-ui-react';
-import logo from '../../public/assets/animated-logo.gif';
 
 const Home = () => {
-  const history = useHistory();
   const { authState, oktaAuth } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
 
@@ -32,10 +28,6 @@ const Home = () => {
     }
   }, [authState, oktaAuth]); // Update if authState changes
 
-  const login = async () => {
-    history.push('/login');
-  };
-
   if (authState.isPending) {
     return (
       <div>Loading...</div>
@@ -45,8 +37,6 @@ const Home = () => {
   return (
     <div>
       <div>
-        <Header as="h1">PKCE Flow w/ Custom Login</Header>
-
         { authState.isAuthenticated && !userInfo
         && <div>Loading user information...</div>}
 
@@ -60,16 +50,6 @@ const Home = () => {
           </p>
         </div>
         )}
-
-        {!authState.isAuthenticated
-        && (
-        <div>
-          <img src={logo} alt="loading logo..." />
-          <br />
-          <Button id="login-button" primary onClick={login}>Login</Button>
-        </div>
-        )}
-
       </div>
     </div>
   );
