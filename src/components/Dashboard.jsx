@@ -48,9 +48,11 @@ const Dashboard = () => {
 
   // TODO: Add auth and make /dashboard a secureroute
   return (
-    <div style={style} className="dashboard">
-      {cards}
-    </div>
+    authState.isAuthenticated && (
+      <div style={style} className="dashboard">
+        {cards}
+      </div>
+    )
   );
 };
 
