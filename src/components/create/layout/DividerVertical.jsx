@@ -1,8 +1,10 @@
 /* eslint-disable */
 import React, { useState, useEffect } from 'react';
-import { Divider, Grid, Segment } from 'semantic-ui-react';
+import { Divider, Grid, Segment, Button } from 'semantic-ui-react';
 import WidgetContainerRight from './WidgetContainerRight';
 import WidgetContainerLeft from './WidgetContainerLeft';
+import gql from 'graphql-tag'
+import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync'
 
 
 const DividerVertical = () => {
@@ -60,6 +62,7 @@ const DividerVertical = () => {
         </Grid>
         <Divider vertical>And</Divider>
       </Segment>
+      <Button floated='right'>Save</Button>
     </div>
   );
 };

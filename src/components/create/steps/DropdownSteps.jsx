@@ -7,10 +7,15 @@ import Step1 from './Step1CustomTitle';
 import Step3 from './Step3CustomAuth';
 import Step5 from './Step5EnableRegistration';
 import { SketchPicker } from 'react-color';
-
+import $ from 'jquery';
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
+import gql from 'graphql-tag'
+import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync'
+import awsconfig from '../../../aws-exports';
+
+
 
 class DropdownSteps extends Component {
   constructor(props) {
@@ -21,18 +26,64 @@ class DropdownSteps extends Component {
     this.logoChange = this.props.handleLogoUrl
     this.handleSocialAuth = this.props.handleSocialAuth
     this.value = `
-    #okta-sign-in.auth-container .okta-sign-in-header {
-        border-bottom-color: #ddd;
-        background: red;
+    #okta-sign-in.auth-container  {
+        "border-bottom-color": "#ddd";
+        "background": "red";
     }`.trim()
     console.log(this.props.handleChangeToCustomTitle)
   }
 
+
+  mutate = gql(`
+  mutation createWidget($createwidgetinput: CreateWidgetInput!) {
+    createWidget(input: $createwidgetinput) {
+      name
+    }
+  }
+`)
+
+vari = {
+  "name": "jk",
+}
+
   onChange(newValue) {
     console.log("change", newValue);
-   
+    // var items = newValue.split(" {")
+  
+    // var selector = items[0]
+    // items.shift()
+    // console.log("#######")
+    // console.log(selector)
+    // console.log(items.join("").trim())
+    // var css = "{ " + items.join("").trim()
+    // console.log(css)
+    // var fullPicture = JSON.parse(css)
+    // console.log(fullPicture)
+    // console.log("#######")
+    // $(selector).css(fullPicture)
   }
   
+  submitWidget = async (name) => {
+    var token = JSON.parse(localStorage.getItem("okta-token-storage"))
+    console.log(token.accessToken.value)
+    var graphqlClient = new AWSAppSyncClient({
+      url: "https://my3tbw2e4ngbjaq3dxnbra3fhe.appsync-api.us-west-2.amazonaws.com/graphql",
+      region: "us-west-2",
+      disableOffline: true,
+      auth: {
+        type: AUTH_TYPE.OPENID_CONNECT,
+        jwtToken: token.accessToken.value,
+      },
+    });
+    try {
+      var response = await graphqlClient.mutate({ mutation: this.mutate, variables:{createwidgetinput: this.vari} })
+    console.log(response.data)
+    } catch(e) {
+      console.log(e)
+    }
+ 
+    
+  }
 
   // This is for the color picker
   handleChangeComplete = (color) => {
@@ -59,6 +110,10 @@ class DropdownSteps extends Component {
       console.log(resultEvent.info.url)
       this.logoChange(resultEvent.info.url)
     }
+  }
+
+  applyCode = () => {
+    var code = this.refs.aceEditor.editor.getValue()
   }
 
 
@@ -151,23 +206,20 @@ class DropdownSteps extends Component {
         <h1>Custom CSS</h1>
         <Button> Apply</Button>
         <br />
-        <AceEditor
-          ref="ace"
-          id="ace"
-          style={{ color: `${this.state.customStyle}` }}
-          className="editor"
-          onChange={this.onChange}
-          mode="css"
-          value={this.value}
-          theme="github"
-          name="UNIQUE_ID_OF_DIV"
-          editorProps={{ $blockScrolling: true }}
-          setOptions={{
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true,
-            enableSnippets: true
-          }}
-        />,
+        <AceEditor ref="aceEditor"
+    mode="java"
+    theme="github"
+    onChange={this.onChange}
+    name="UNIQUE_ID_OF_DIV"
+    value={this.value}
+    editorProps={{ $blockScrolling: true }}
+    setOptions={{
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true,
+      enableSnippets: true
+    }}
+  />,
+   <Button onClick={this.submitWidget} floated='right'>Right Floated</Button>
       </div>
     );
   }
