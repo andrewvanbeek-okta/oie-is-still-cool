@@ -8,8 +8,9 @@ import WidgetContainerLeft from './WidgetContainerLeft';
 const DividerVertical = () => {
   const [customTitle, setCustomTitle] = useState();
   const [logoUrl, setLogoUrl] = useState();
-  const [socailAuthProviders, setSocailAuthProviders] = useState();
+  const [socialAuthProviders, setSocialAuthProviders] = useState();
   const [widgetConfig, setWidgetConfig] = useState()
+
 
   const handleChangeToCustomTitle = (e) => {
     console.log("top parent")
@@ -30,7 +31,7 @@ const DividerVertical = () => {
   const handleSocialAuth = (e) => {
     console.log("top parent")
     console.log("input value:", e);
-    setSocailAuthProviders(e)
+    setSocialAuthProviders(e)
   }
 
   const style = {
@@ -54,7 +55,7 @@ const DividerVertical = () => {
             <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} handleLogoUrl={handleLogoUrl} handleSocialAuth={handleSocialAuth} />
           </Grid.Column>
           <Grid.Column className="rightColumn">
-            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} />
+            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} socialAuthProviders={socialAuthProviders} />
           </Grid.Column>
         </Grid>
         <Divider vertical>And</Divider>

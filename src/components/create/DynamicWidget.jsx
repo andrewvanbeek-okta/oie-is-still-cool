@@ -119,14 +119,7 @@ export default class DynamicWidget extends Component {
       features: {
         registration: true, // Enable self-service registration flow
       },
-      idps: [
-        { type: 'GOOGLE', id: '0oas1xf52O9XhIAYb5d6' },
-        // { type: 'OKTA', id: '0oas1xf52O9XhIAYb5d6', text: 'Sign in with Okta', logo: '/react.svg' },
-        // { type: 'FACEBOOK', id: '0oas1xf52O9XhIAYb5d6' },
-        // { type: 'APPLE', id: '0oas1xf52O9XhIAYb5d6' },
-        // { type: 'LINKEDIN', id: '0oas1xf52O9XhIAYb5d6' },
-        // { type: 'MICROSOFT', id: '0oas1xf52O9XhIAYb5d6' },
-      ],
+      idps: [],
       i18n: {
         en: {
           'primaryauth.title': this.customTitle,
@@ -149,6 +142,22 @@ export default class DynamicWidget extends Component {
     const { issuer, clientId, redirectUri, scopes } = config.oidc;
     var title = nextProps.title || this.customTitle
     var logoUrl = nextProps.logo || this.config.logo
+    var socialproviders = []
+    console.log("this is the set title:", title)
+    if(nextProps.socialAuthProviders) {
+      if(nextProps.socialAuthProviders["Google"]) {
+        socialproviders.push({ type: 'GOOGLE', id: '0oas1xf5skldmfdisof' })
+      } if(nextProps.socialAuthProviders["Apple"]) {
+        socialproviders.push({ type: 'APPLE', id: '0oas1xdsfijdsofjiosj' })
+      } if(nextProps.socialAuthProviders["Facebook"]) {
+        socialproviders.push({ type: 'FACEBOOK', id: '0oas1xf5disojfiodshfoisd' })
+      } if(nextProps.socialAuthProviders["Linkedin"]) {
+        socialproviders.push({ type: 'LINKEDIN', id: '0oas1xf5disojfifsshfoisd' })
+      }
+    }
+    console.log("this is our socials:", socialproviders)
+
+
     this.widget = new OktaSignIn({
             baseUrl: issuer.split('/oauth2')[0],
             clientId,
@@ -157,14 +166,7 @@ export default class DynamicWidget extends Component {
             features: {
               registration: true, // Enable self-service registration flow
             },
-            idps: [
-              { type: 'GOOGLE', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'OKTA', id: '0oas1xf52O9XhIAYb5d6', text: 'Sign in with Okta', logo: '/react.svg' },
-              // { type: 'FACEBOOK', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'APPLE', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'LINKEDIN', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'MICROSOFT', id: '0oas1xf52O9XhIAYb5d6' },
-            ],
+            idps: socialproviders,
             i18n: {
               en: {
                 'primaryauth.title': title,

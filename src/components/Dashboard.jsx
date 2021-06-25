@@ -35,7 +35,6 @@ const Dashboard = () => {
   const history = useHistory();
   const { authState, oktaAuth } = useOktaAuth();
   const [userInfo, setUserInfo] = useState(null);
-  console.log("YAKA")
   const [cards, setCards] = useState([])
   //const cards = []
   useEffect(async () => {
