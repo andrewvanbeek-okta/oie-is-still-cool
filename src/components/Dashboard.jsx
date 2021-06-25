@@ -28,6 +28,7 @@ query ListWidgets(
         name
         description
         link
+        logo_url
       }
       nextToken
     }
