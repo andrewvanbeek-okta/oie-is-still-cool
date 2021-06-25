@@ -1,7 +1,8 @@
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import DataCard from './DataCard';
+// import Details from './Details';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -31,7 +32,13 @@ const Dashboard = () => {
     link: '#',
   };
   for (let i = 0; i < 20; i += 1) {
-    cards.push(<DataCard data={data} />);
+    cards.push(
+      //   <Router>
+      <Link to={`/${i}/details`}>
+        <DataCard data={data} />
+      </Link>,
+      //   </Router>,
+    );
   }
 
   // Inline styling

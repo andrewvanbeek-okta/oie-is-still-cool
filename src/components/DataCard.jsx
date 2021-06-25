@@ -8,7 +8,7 @@ const DataCard = (props) => {
   };
 
   return (
-    <Card style={style} href={data.link}>
+    <Card style={style}>
       <Image src={`${data.img}`} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{data.name}</Card.Header>

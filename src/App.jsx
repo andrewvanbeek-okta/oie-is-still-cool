@@ -12,6 +12,7 @@ import Landing from './components/LoginContainer';
 import AnimatedBackground from './components/AnimatedBackground';
 import './index.css';
 import Dashboard from './components/Dashboard';
+import Details from './components/Details';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
@@ -33,7 +34,8 @@ const App = () => {
         <Route path="/login" component={CustomLoginComponent} />
         <SecureRoute path="/messages" component={Messages} />
         <SecureRoute path="/profile" component={Profile} />
-        <SecureRoute path="/dashboard" component={Dashboard} />
+        <SecureRoute exact path="/dashboard" component={Dashboard} />
+        <Route path="/:id/details" component={Details} />
       </Switch>
       <AnimatedBackground />
       <div className="overlay">

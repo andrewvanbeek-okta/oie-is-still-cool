@@ -40,6 +40,11 @@ const Navbar = () => {
               <Link to="/profile">Profile</Link>
             </Menu.Item>
           )}
+          {authState.isAuthenticated && (
+            <Menu.Item id="profile-button">
+              <Link to="/dashboard">Dashboard</Link>
+            </Menu.Item>
+          )}
           {authState.isAuthenticated && <Menu.Item id="logout-button" onClick={logout}>Logout</Menu.Item>}
         </Container>
       </Menu>
