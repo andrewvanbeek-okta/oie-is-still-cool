@@ -8,30 +8,32 @@ import WidgetContainerLeft from './WidgetContainerLeft';
 const DividerVertical = () => {
   const [customTitle, setCustomTitle] = useState();
   const [logoUrl, setLogoUrl] = useState();
-  const [socialAuthProviders, setSocialAuthProviders] = useState();
+  const [socialAuthProviders, setSocialAuthProviders] = useState([]);
   const [widgetConfig, setWidgetConfig] = useState()
 
 
   const handleChangeToCustomTitle = (e) => {
-    console.log("top parent")
-    console.log("input value:", e);
+    // console.log("top parent")
+    // console.log("input value:", e);
     setCustomTitle(e);
     // widgetConfig.title = e
     // setWidgetConfig(widgetConfig)
+    // console.log("my title", e);
   };
 
   const handleLogoUrl = (e) => {
-    console.log("top parent")
-    console.log("input value:", e);
+    // console.log("top parent")
+    // console.log("input value:", e);
     setLogoUrl(e)
     // widgetConfig.logoUrl = e
     // setWidgetConfig(widgetConfig)
   };
 
   const handleSocialAuth = (e) => {
-    console.log("top parent")
-    console.log("input value:", e);
-    setSocialAuthProviders(e)
+    // console.log("top parent")
+    // console.log("input value:", e);
+    setSocialAuthProviders(socialAuthProviders.concat(...e))
+    // console.log("my social providers", e)
   }
 
   const style = {
