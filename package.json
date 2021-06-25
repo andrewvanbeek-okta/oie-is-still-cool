@@ -44,6 +44,7 @@
     "lint": "npx eslint -c .eslintrc.json --ext .js --ext .jsx src/"
   },
   "devDependencies": {
+    "@rjsf/core": "^2.5.1",
     "eslint": "^7.12.1",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.22.0",
