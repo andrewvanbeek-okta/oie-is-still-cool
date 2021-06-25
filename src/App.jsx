@@ -12,6 +12,7 @@ import AnimatedBackground from './components/AnimatedBackground';
 import './index.css';
 import DividerVertical from './components/create/layout/DividerVertical';
 import Details from './components/Details';
+import EditProfile from './components/EditProfile';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/login" component={CustomLoginComponent} />
         <SecureRoute path="/upload" component={DividerVertical} />
         <SecureRoute path="/profile" component={Profile} />
+        <SecureRoute path="/editprofile" component={EditProfile} />
         <SecureRoute exact path="/dashboard" component={Dashboard} />
         <Route path="/:id/details" component={Details} />
       </Switch>
