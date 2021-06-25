@@ -7,8 +7,8 @@ const Step5EnableRegistration = ({ handleReg }) => {
 
   const handleChange = (async (e, data) => {
     console.log(e);
-    var currentReg = true;
-    //currentReg[e.target.textContent] = data.checked;
+    var currentReg = regi ;
+    currentReg = data.checked;
     setRegi(currentReg);
     console.log(currentReg);
     handleReg(regi);

@@ -11,8 +11,8 @@ export default class DynamicWidget extends Component {
     super(props);
     console.log(this.props)
     this.wrapper = React.createRef();
-    this.state = {regi: true};
     this.customTitle = this.props.customTitle || "Sign In widget ready to Customize"
+    console.log(this.regi)
     const { issuer, clientId, redirectUri, scopes } = config.oidc;
     this.config = {
       baseUrl: issuer.split('/oauth2')[0],
@@ -20,7 +20,7 @@ export default class DynamicWidget extends Component {
       redirectUri,
       logo: '/react.svg',
       features: {
-        registration: this.isRegistration, // Enable self-service registration flow
+        registration: this.regi,
       },
       idps: [],
       i18n: {
@@ -67,7 +67,7 @@ export default class DynamicWidget extends Component {
             redirectUri,
             logo: logoUrl,
             features: {
-              registration: this.state.regi, // Enable self-service registration flow
+              registration: !this.props.regi, // Enable self-service registration flow
             },
             idps: socialproviders,
             i18n: {

@@ -37,7 +37,7 @@ const DividerVertical = () => {
   }
 
   const handleReg = (e) => {
-    console.log("Reg value: ", e);
+    console.log("Reg value: ", !e);
     setReg(!e)
   }
 
