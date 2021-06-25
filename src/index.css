@@ -37,4 +37,60 @@ canvas {
   justify-content: center;
   align-items: center;
   color: crimson;
+  position: absolute;
+  /* z-index: -5; */
+}
+
+#leftSide {
+  color: blue;
+  padding-right: 50%;
+}
+
+#rightSide {
+  color: orange;
+  padding-left: 50%;
+}
+
+.widgetContainer {
+  border: black 5px solid;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.dynamicWidgetContainer {
+  z-index: 1;
+}
+
+.rightColumn .leftColumn {
+  z-index: 5;  
+  position: relative;
+}
+
+#clickable {
+  z-index: 6;
+  position: relative;
+}
+
+#editor {
+  padding-top: 20 rem;
+  margin-top: 50%;
+  min-width: 100% !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#okta-sign-in {
+  border-radius: 100px;
 }
