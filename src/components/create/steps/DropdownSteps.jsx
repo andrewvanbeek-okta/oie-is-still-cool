@@ -21,16 +21,17 @@ class DropdownSteps extends Component {
   constructor(props) {
     super(props);
     this.state = { activeIndex: 0 };
-
     this.handleSubmit = this.props.handleChangeToCustomTitle;
-    this.logoChange = this.props.handleLogoUrl
-    this.handleSocialAuth = this.props.handleSocialAuth
+    this.logoChange = this.props.handleLogoUrl;
+    this.handleSocialAuth = this.props.handleSocialAuth;
+    // this.handleCustomColor = this.props.handleCustomColor;
     this.value = `
     #okta-sign-in.auth-container  {
         "border-bottom-color": "#ddd";
         "background": "red";
     }`.trim()
     console.log(this.props.handleChangeToCustomTitle)
+    this.handleCustomColorChange = this.handleCustomColorChange.bind(this)
   }
 
 
@@ -85,10 +86,11 @@ vari = {
     
   }
 
-  // This is for the color picker
-  handleChangeComplete = (color) => {
-    this.setState({ background: color.hex });
-  };
+  handleCustomColorChange(newValue) {
+    console.log("change", newValue, this.props);
+    this.props.handleCustomColor(newValue.hex);
+    this.setState({customColor: newValue});
+  }
 
   // This is for the active dropdown option
   handleClick = (index) => (event) => {
@@ -182,8 +184,8 @@ vari = {
           <Accordion.Content active={activeIndex === 3}>
             <div className="colorPicker">
               <SketchPicker
-                color={this.state.background}
-                onChangeComplete={this.handleChangeComplete}
+                color={this.state.customColor}
+                onChangeComplete={this.handleCustomColorChange}
               />
             </div>
           </Accordion.Content>

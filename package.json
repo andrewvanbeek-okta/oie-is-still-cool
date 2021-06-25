@@ -16,7 +16,12 @@
     "colors": "^1.4.0",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
+<<<<<<< HEAD
     "jquery": "^3.6.0",
+=======
+    "jquery": "^3.5.1",
+    "node": "^16.3.0",
+>>>>>>> 5ae0c84 (finish color picker)
     "react": "^17.0.1",
     "react-ace": "^9.4.1",
     "react-color": "^2.19.3",
