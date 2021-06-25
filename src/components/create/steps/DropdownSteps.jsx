@@ -19,6 +19,7 @@ class DropdownSteps extends Component {
 
     this.handleSubmit = this.props.handleChangeToCustomTitle;
     this.logoChange = this.props.handleLogoUrl
+    this.handleSocialAuth = this.props.handleSocialAuth
     console.log(this.props.handleChangeToCustomTitle)
   }
 
@@ -100,7 +101,7 @@ class DropdownSteps extends Component {
           Add Social Authenticators
         </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            <Step3 />
+            <Step3 handleSocialAuth={this.handleSocialAuth}/>
           </Accordion.Content>
           {/* *********************SOCIAL******************** */}
 

@@ -109,7 +109,37 @@ export default class DynamicWidget extends Component {
     super(props);
     console.log(this.props)
     this.wrapper = React.createRef();
-    this.customTitle = this.props.customTitle
+    this.customTitle = this.props.customTitle || "Sign In widget ready to Customize"
+    const { issuer, clientId, redirectUri, scopes } = config.oidc;
+    this.config = {
+      baseUrl: issuer.split('/oauth2')[0],
+      clientId,
+      redirectUri,
+      logo: '/react.svg',
+      features: {
+        registration: true, // Enable self-service registration flow
+      },
+      idps: [
+        { type: 'GOOGLE', id: '0oas1xf52O9XhIAYb5d6' },
+        // { type: 'OKTA', id: '0oas1xf52O9XhIAYb5d6', text: 'Sign in with Okta', logo: '/react.svg' },
+        // { type: 'FACEBOOK', id: '0oas1xf52O9XhIAYb5d6' },
+        // { type: 'APPLE', id: '0oas1xf52O9XhIAYb5d6' },
+        // { type: 'LINKEDIN', id: '0oas1xf52O9XhIAYb5d6' },
+        // { type: 'MICROSOFT', id: '0oas1xf52O9XhIAYb5d6' },
+      ],
+      i18n: {
+        en: {
+          'primaryauth.title': this.customTitle,
+        },
+      },
+      authParams: {
+        // To avoid redirect do not set "pkce" or "display" here. OKTA-335945
+        issuer,
+        scopes,
+      },
+      registration: {
+      },
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -117,8 +147,8 @@ export default class DynamicWidget extends Component {
     console.log(nextProps)
     this.widget.remove()
     const { issuer, clientId, redirectUri, scopes } = config.oidc;
-    var title = nextProps.title
-    var logoUrl = nextProps.logo
+    var title = nextProps.title || this.customTitle
+    var logoUrl = nextProps.logo || this.config.logo
     this.widget = new OktaSignIn({
             baseUrl: issuer.split('/oauth2')[0],
             clientId,
@@ -164,35 +194,7 @@ export default class DynamicWidget extends Component {
   componentDidMount() {
     const { issuer, clientId, redirectUri, scopes } = config.oidc;
     var title = this.customTitle
-    this.widget = new OktaSignIn({
-            baseUrl: issuer.split('/oauth2')[0],
-            clientId,
-            redirectUri,
-            logo: '/react.svg',
-            features: {
-              registration: true, // Enable self-service registration flow
-            },
-            idps: [
-              { type: 'GOOGLE', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'OKTA', id: '0oas1xf52O9XhIAYb5d6', text: 'Sign in with Okta', logo: '/react.svg' },
-              // { type: 'FACEBOOK', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'APPLE', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'LINKEDIN', id: '0oas1xf52O9XhIAYb5d6' },
-              // { type: 'MICROSOFT', id: '0oas1xf52O9XhIAYb5d6' },
-            ],
-            i18n: {
-              en: {
-                'primaryauth.title': title,
-              },
-            },
-            authParams: {
-              // To avoid redirect do not set "pkce" or "display" here. OKTA-335945
-              issuer,
-              scopes,
-            },
-            registration: {
-            },
-          });
+    this.widget = new OktaSignIn(this.config);
         this.widget.showSignInToGetTokens({
       el: this.wrapper.current,
       scopes,
