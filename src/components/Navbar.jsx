@@ -32,7 +32,7 @@ const Navbar = () => {
           {authState.isAuthenticated && (
           <Menu.Item id="messages-button">
             <Icon name="mail outline" />
-            <Link to="/messages">Messages</Link>
+            <Link to="/upload">Upload</Link>
           </Menu.Item>
           )}
           {authState.isAuthenticated && (
