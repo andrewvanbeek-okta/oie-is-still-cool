@@ -54,6 +54,10 @@ canvas {
   z-index: 5;
 }
 
+#navmenu {
+  margin-bottom: 200px;
+}
+
 .dynamicWidgetContainer {
   z-index: 1;
 }
@@ -81,4 +85,12 @@ canvas {
 
 #okta-sign-in {
   border-radius: 100px;
+}
+
+#widgetEditor {
+  padding-top: 200px i !important;
+}
+
+.dashboard {
+  padding-top: 200px i !important;
 }

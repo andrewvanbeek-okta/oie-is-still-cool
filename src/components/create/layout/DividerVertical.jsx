@@ -11,8 +11,16 @@ const DividerVertical = () => {
     setCustomTitle(e.target.value);
   };
 
+  const style = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: '15%',
+    padding: '0',
+  };
+
   return (
-    <div className="overlay">
+    <div id="widgetEditor" style={style} className="overlay">
       <Segment>
         <Grid columns={2} relaxed="very">
           <Grid.Column className="leftColumn">

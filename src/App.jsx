@@ -10,9 +10,9 @@ import Profile from './components/Profile';
 import Landing from './components/LoginContainer';
 import AnimatedBackground from './components/AnimatedBackground';
 import './index.css';
-import Dashboard from './components/Dashboard';
 import DashboardCopy from './components/DashboardCopy';
 import SubmitData from './components/SubmitDataExample';
+import DividerVertical from './components/create/layout/DividerVertical';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
