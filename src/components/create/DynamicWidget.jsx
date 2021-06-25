@@ -60,6 +60,7 @@ export default  withOktaAuth(class DynamicWidget extends Component {
       description
       link
       logo_url
+      meta
     }
   }
 `)
@@ -232,6 +233,16 @@ export default  withOktaAuth(class DynamicWidget extends Component {
   }
 
   render() {
-    return <div><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><Button onClick={this.showWidgetThumbnail}floated='right'>Take a Picture</Button><div ref={this.wrapper} /></div>;
+    return <div><Form>
+    <Form.Field>
+      <label>First Name</label>
+      <input placeholder='First Name' />
+    </Form.Field>
+    <Form.Field>
+      <label>Last Name</label>
+      <input placeholder='Last Name' />
+    </Form.Field>
+    <Button type='submit'>Submit</Button>
+  </Form><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><Button onClick={this.showWidgetThumbnail}floated='right'>Take a Picture</Button><div ref={this.wrapper} /></div>;
   }
 })
