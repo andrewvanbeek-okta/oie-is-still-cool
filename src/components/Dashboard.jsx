@@ -2,7 +2,9 @@
 import { useOktaAuth } from '@okta/okta-react';
 import awsconfig from '../aws-exports';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+// import awsconfig from '../aws-exports';
 import DataCard from './DataCard';
 import gql from 'graphql-tag'
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync'
@@ -80,7 +82,9 @@ const Dashboard = () => {
     var localCards = []
     for (let i = 0; i < response.data.listWidgets.items.length; i += 1) {
       var card = response.data.listWidgets.items[i]
-      localCards.push(<DataCard data={card} />);
+      localCards.push(<Link to={`/${i}/details`}>
+      <DataCard data={data} />
+    </Link>);
     }
     console.log(localCards)
     setCards(localCards)
@@ -90,16 +94,16 @@ const Dashboard = () => {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginTop: '15%',
+    marginTop: '7rem',
     padding: '0',
+    zIndex: '1',
+    position: 'relative',
   };
   // If user is being authenticated...
   if (authState.isPending) return <div>Loading...</div>;
   // TODO: Add auth and make /dashboard a secureroute
   return (
-    <div style={style} className="dashboard">
-      {cards}
-    </div>
+    authState.isAuthenticated && <Container style={style}>{cards}</Container>
   );
 };
 export default Dashboard;

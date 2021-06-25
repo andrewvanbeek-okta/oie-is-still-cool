@@ -13,6 +13,7 @@ import './index.css';
 import DashboardCopy from './components/DashboardCopy';
 import SubmitData from './components/SubmitDataExample';
 import DividerVertical from './components/create/layout/DividerVertical';
+import Details from './components/Details';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
@@ -36,9 +37,8 @@ const App = () => {
         <Route path="/login" component={CustomLoginComponent} />
         <SecureRoute path="/upload" component={DividerVertical} />
         <SecureRoute path="/profile" component={Profile} />
-        <SecureRoute path="/dashboard" component={Dashboard} />
-        <SecureRoute path="/copy" component={DashboardCopy} />
-        <SecureRoute path="/submit" component={SubmitData} />
+        <SecureRoute exact path="/dashboard" component={Dashboard} />
+        <Route path="/:id/details" component={Details} />
       </Switch>
       <AnimatedBackground />
       <div className="overlay">
