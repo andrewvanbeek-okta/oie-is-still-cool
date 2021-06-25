@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Radio } from 'semantic-ui-react';
 
 const Step3CustomAuth = ({ handleSocialAuth }) => {
-  const [socials, setSocials] = useState();
+  const [socials, setSocials] = useState([]);
 
   var handleChange = (async (e, data) => {
-    console.log(e)
-    var currentSocails = socials || {}
-    currentSocails[e.target.textContent] = data.checked
+    // console.log(e)
+    var currentSocails = socials || []
+    data.checked ? currentSocails.push(e.target.textContent) : currentSocails.splice(currentSocails.indexOf(e.target.textContent),1)
+    // currentSocails[e.target.textContent] = data.checked
     setSocials(currentSocails)
-    console.log(socials)
+    console.log("my socials", socials)
     handleSocialAuth(socials)
   })
 
