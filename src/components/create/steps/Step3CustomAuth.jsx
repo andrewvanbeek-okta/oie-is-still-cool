@@ -1,7 +1,7 @@
 import React from 'react';
 import { Radio } from 'semantic-ui-react';
 
-const RadioExampleRadio = () => (
+const Step3CustomAuth = () => (
   <div>
     <Radio toggle label="Google" />
     <br />
@@ -13,4 +13,4 @@ const RadioExampleRadio = () => (
   </div>
 );
 
-export default RadioExampleRadio;
+export default Step3CustomAuth;

@@ -4,11 +4,11 @@ import WidgetContainerRight from './WidgetContainerRight';
 import WidgetContainerLeft from './WidgetContainerLeft';
 
 const DividerVertical = () => {
-  const [firstName, setfirstName] = useState();
-  const handleSubmit = (e) => {
+  const [customTitle, setCustomTitle] = useState();
+  const handleChangeToCustomTitle = (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    setfirstName(e.target.value);
+    setCustomTitle(e.target.value);
   };
 
   return (
@@ -16,11 +16,10 @@ const DividerVertical = () => {
       <Segment>
         <Grid columns={2} relaxed="very">
           <Grid.Column className="leftColumn">
-            <WidgetContainerLeft handleSubmit={handleSubmit} />
-            {/* <Input id="clickable" onChange={(e) => handleSubmit(e)} /> */}
+            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} />
           </Grid.Column>
           <Grid.Column className="rightColumn">
-            <WidgetContainerRight firstName={firstName} />
+            <WidgetContainerRight firstName={customTitle} />
           </Grid.Column>
         </Grid>
         <Divider vertical>And</Divider>
