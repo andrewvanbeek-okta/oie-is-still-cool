@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
-import AccordionSteps from '../steps/AccordionSteps';
+import DropdownSteps from '../steps/DropdownSteps';
 
-const ContainerExampleContainer = ({ handleSubmit }) => (
+const ContainerExampleContainer = ({ handleChangeToCustomTitle }) => (
   <Container className="widgetContainer">
-    <AccordionSteps handleSubmit={handleSubmit} />
+    <DropdownSteps handleChangeToCustomTitle={handleChangeToCustomTitle} />
   </Container>
 );
 

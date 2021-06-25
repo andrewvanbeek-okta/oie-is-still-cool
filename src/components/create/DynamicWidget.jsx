@@ -5,7 +5,7 @@ import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 
 import config from '../../config';
 
-const DynamicWidget = ({ firstName }) => {
+const DynamicWidget = ({ customTitle }) => {
   const { oktaAuth } = useOktaAuth();
   const widgetRef = useRef();
 
@@ -38,7 +38,7 @@ const DynamicWidget = ({ firstName }) => {
       ],
       i18n: {
         en: {
-          'primaryauth.title': Object.values({ firstName }),
+          'primaryauth.title': Object.values({ customTitle }),
         },
       },
       authParams: {

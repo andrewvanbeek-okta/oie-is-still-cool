@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'semantic-ui-react';
 
-const InputExampleFocus = ({ handleSubmit }) => (
+const Step1CustomTitle = ({ handleSubmit }) => (
   <div>
     <Input
       type="text"
@@ -13,4 +13,4 @@ const InputExampleFocus = ({ handleSubmit }) => (
   </div>
 );
 
-export default InputExampleFocus;
+export default Step1CustomTitle;

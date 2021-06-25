@@ -3,42 +3,41 @@ import React, { Component } from 'react';
 import { render } from "react-dom";
 import AceEditor from "react-ace";
 import { Accordion, Button, Icon } from 'semantic-ui-react';
-import Step1 from './Step1';
-import Step3 from './Step3';
-import Step5 from './Step5';
+import Step1 from './Step1CustomTitle';
+import Step3 from './Step3CustomAuth';
+import Step5 from './Step5EnableRegistration';
 import { SketchPicker } from 'react-color';
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 
-class AccordionSteps extends Component {
+class DropdownSteps extends Component {
   constructor(props) {
     super(props);
-    this.state = { activeIndex: 0, customStyle: "blue",  background: '#fff'};
+    this.state = { activeIndex: 0};
     this.handleSubmit = this.props.handleSubmit;
   }
 
+  // This is for the color picker
   handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
   };
 
+  // This is for the active dropdown option
   handleClick = (index) => (event) => {
-    console.log(event);
-    // const { index } = this.props;
     const { activeIndex } = this.state;
-    const { customStyle } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
     this.setState({ activeIndex: newIndex });
   };
 
   render() {
     const { activeIndex } = this.state;
-    const { customStyle } = this.state;
 
     return (
       <div>
       <Accordion>
+        {/* *********************TITLE******************** */}
         <Accordion.Title
           active={activeIndex === 0}
           onClick={this.handleClick(0)}
@@ -49,7 +48,9 @@ class AccordionSteps extends Component {
         <Accordion.Content active={activeIndex === 0}>
           <Step1 handleSubmit={this.handleSubmit}/>
         </Accordion.Content>
+        {/* *********************TITLE******************** */}
 
+        {/* *********************LOGO******************** */}
         <Accordion.Title
           active={activeIndex === 1}
           onClick={this.handleClick(1)}
@@ -63,7 +64,9 @@ class AccordionSteps extends Component {
           <input type="submit" />
         </form>
         </Accordion.Content>
+        {/* *********************LOGO******************** */}
 
+        {/* *********************SOCIAL******************** */}
         <Accordion.Title
           active={activeIndex === 2}
           onClick={this.handleClick(2)}
@@ -74,7 +77,9 @@ class AccordionSteps extends Component {
         <Accordion.Content active={activeIndex === 2}>
           <Step3 />
         </Accordion.Content>
+        {/* *********************SOCIAL******************** */}
 
+        {/* *********************COLOR-PICKER******************** */}
         <Accordion.Title
           active={activeIndex === 3}
           onClick={this.handleClick(3)}
@@ -83,12 +88,16 @@ class AccordionSteps extends Component {
           Choose a background color
         </Accordion.Title>
         <Accordion.Content active={activeIndex === 3}>
-          <SketchPicker 
-            color={ this.state.background }
-            onChangeComplete={ this.handleChangeComplete }
-          />
+          <div className="colorPicker">
+            <SketchPicker 
+              color={ this.state.background }
+              onChangeComplete={ this.handleChangeComplete }
+            />
+          </div>
         </Accordion.Content>
+        {/* *********************COLOR-PICKER******************** */}
 
+        {/* *********************REG******************** */}
         <Accordion.Title
           active={activeIndex === 4}
           onClick={this.handleClick(4)}
@@ -99,7 +108,9 @@ class AccordionSteps extends Component {
         <Accordion.Content active={activeIndex === 4}>
           <Step5 />
         </Accordion.Content>
+        {/* *********************REG******************** */}
       </Accordion>
+
       <h1>Custom CSS</h1>
       <Button> Apply</Button>
       <br />
@@ -123,4 +134,4 @@ class AccordionSteps extends Component {
   }
 }
 
-export default AccordionSteps;
+export default DropdownSteps;

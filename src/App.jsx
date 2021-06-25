@@ -3,9 +3,8 @@ import { Route, useHistory, Switch } from 'react-router-dom';
 import { OktaAuth } from '@okta/okta-auth-js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import config from './config';
-import Home from './components/Home';
 import CustomLoginComponent from './components/Login';
-import Upload from './components/create/layout/Upload';
+import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 import Landing from './components/LoginContainer';
@@ -26,13 +25,16 @@ const App = () => {
   };
 
   return (
-    <Security oktaAuth={oktaAuth} onAuthRequired={customAuthHandler}>
+    <Security
+      oktaAuth={oktaAuth}
+      onAuthRequired={customAuthHandler}
+    >
       <Navbar />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact component={Dashboard} />
         <Route path="/login/callback" component={LoginCallback} />
         <Route path="/login" component={CustomLoginComponent} />
-        <SecureRoute path="/upload" component={Upload} />
+        <SecureRoute path="/upload" component={DividerVertical} />
         <SecureRoute path="/profile" component={Profile} />
         <SecureRoute path="/dashboard" component={Dashboard} />
         <SecureRoute path="/copy" component={DashboardCopy} />
