@@ -24,6 +24,7 @@ class DropdownSteps extends Component {
     this.handleSubmit = this.props.handleChangeToCustomTitle;
     this.logoChange = this.props.handleLogoUrl;
     this.handleSocialAuth = this.props.handleSocialAuth;
+    this.handleReg = this.props.handleReg;
     // this.handleCustomColor = this.props.handleCustomColor;
     this.value = `
     #okta-sign-in.auth-container  {
@@ -200,7 +201,7 @@ vari = {
           Enable registration
         </Accordion.Title>
           <Accordion.Content active={activeIndex === 4}>
-            <Step5 />
+            <Step5 handleReg={this.handleReg}/>
           </Accordion.Content>
           {/* *********************REG******************** */}
         </Accordion>
