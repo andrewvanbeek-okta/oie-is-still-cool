@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  * Copyright (c) 2018, Okta, Inc. and/or its affiliates. All rights reserved.
  * The Okta software accompanied by this notice is provided pursuant to the Apache License, Version 2.0 (the "License.")
@@ -17,7 +18,7 @@ import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 import config from '../config';
 
 const Login = () => {
-  const { oktaAuth } = useOktaAuth();
+  const { authState, oktaAuth } = useOktaAuth();
   const widgetRef = useRef();
 
   useEffect(() => {
@@ -49,6 +50,8 @@ const Login = () => {
       useInteractionCodeFlow: true, // Set to true, if your org is OIE enabled
     });
 
+    if (!authState.isAuthenticated) {
+
     widget.renderEl(
       { el: widgetRef.current },
       (res) => {
@@ -60,6 +63,9 @@ const Login = () => {
     );
 
     return () => widget.remove();
+    } else {
+      widget.remove();
+    }
   }, [oktaAuth]);
 
   return (

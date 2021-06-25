@@ -41,13 +41,16 @@ const Profile = () => {
   }
   var checkUploadResult = (resultEvent) => {
     console.log(resultEvent)
+    if(resultEvent.event == "success") {
+      console.log(resultEvent.info.url)
+    }
   }
 
 
 
 var showWidget = () => {
       var widget = cloudinary.createUploadWidget({
-    cloudName: 'styling-signin', uploadPreset: 'preset1', folder: 'widgetUpload', cropping: true
+    cloudName: 'styling-signin', uploadPreset: 'rj2rjbps', folder: 'widgetUpload', cropping: true
   },
     (error, result) => { checkUploadResult(result) })
     widget.open()

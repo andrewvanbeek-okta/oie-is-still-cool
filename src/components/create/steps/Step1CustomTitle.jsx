@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { Input } from 'semantic-ui-react';
 
@@ -6,7 +7,10 @@ const Step1CustomTitle = ({ handleSubmit }) => (
     <Input
       type="text"
       name="firstName"
-      onChange={(e) => { handleSubmit(e); }}
+      onKeyUp={(e) => { 
+        setTimeout(function(){ handleSubmit(e.target.value) }, 2000)
+      console.log(e.target.value)
+      }}
       focus
       placeholder="Company..."
     />

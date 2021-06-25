@@ -2,9 +2,9 @@ import React from 'react';
 import { Container } from 'semantic-ui-react';
 import DynamicWidget from '../DynamicWidget';
 
-const ContainerExampleContainer = ({ firstName }) => (
+const ContainerExampleContainer = ({ firstName, logoUrl }) => (
   <Container className="widgetContainer">
-    <DynamicWidget firstName={firstName} />
+    <DynamicWidget title={firstName} logo={logoUrl} />
   </Container>
 );
 

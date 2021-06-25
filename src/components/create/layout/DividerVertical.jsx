@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+/* eslint-disable */
+import React, { useState, useEffect } from 'react';
 import { Divider, Grid, Segment } from 'semantic-ui-react';
 import WidgetContainerRight from './WidgetContainerRight';
 import WidgetContainerLeft from './WidgetContainerLeft';
 
 const DividerVertical = () => {
   const [customTitle, setCustomTitle] = useState();
+  const [logoUrl, setLogoUrl] = useState();
   const handleChangeToCustomTitle = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-    setCustomTitle(e.target.value);
+    console.log("top parent")
+    console.log("input value:", e);
+    setCustomTitle(e);
+  };
+
+  const handleLogoUrl = (e) => {
+    console.log("top parent")
+    console.log("input value:", e);
+    setLogoUrl(e)
   };
 
   const style = {
@@ -19,15 +27,20 @@ const DividerVertical = () => {
     padding: '0',
   };
 
+  useEffect(async () => {
+    console.log("woot")
+    console.log(customTitle)
+  }, [customTitle])
+
   return (
     <div id="widgetEditor" style={style} className="overlay">
       <Segment>
         <Grid columns={2} relaxed="very">
           <Grid.Column className="leftColumn">
-            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} />
+            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} handleLogoUrl={handleLogoUrl} />
           </Grid.Column>
           <Grid.Column className="rightColumn">
-            <WidgetContainerRight firstName={customTitle} />
+            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} />
           </Grid.Column>
         </Grid>
         <Divider vertical>And</Divider>
