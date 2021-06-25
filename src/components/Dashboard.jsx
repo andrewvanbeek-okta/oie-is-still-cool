@@ -2,6 +2,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
+// import awsconfig from '../aws-exports';
 import DataCard from './DataCard';
 
 const Dashboard = () => {
@@ -46,13 +47,17 @@ const Dashboard = () => {
     justifyContent: 'center',
     marginTop: '7rem',
     padding: '0',
+    zIndex: '1',
+    position: 'relative',
   };
 
   // If user is being authenticated...
   if (authState.isPending) return <div>Loading...</div>;
 
   // TODO: Add auth and make /dashboard a secureroute
-  return authState.isAuthenticated && <Container style={style}>{cards}</Container>;
+  return (
+    authState.isAuthenticated && <Container style={style}>{cards}</Container>
+  );
 };
 
 export default Dashboard;
