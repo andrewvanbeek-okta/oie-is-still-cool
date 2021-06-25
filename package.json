@@ -21,7 +21,10 @@
 =======
     "jquery": "^3.5.1",
     "node": "^16.3.0",
+<<<<<<< HEAD
 >>>>>>> 5ae0c84 (finish color picker)
+=======
+>>>>>>> dc9f4a693cea7aad1201e333397798000966bdc1
     "react": "^17.0.1",
     "react-ace": "^9.4.1",
     "react-color": "^2.19.3",
