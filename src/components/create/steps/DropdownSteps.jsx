@@ -180,7 +180,7 @@ vari = {
             onClick={this.handleClick(3)}
           >
             <Icon name="dropdown" />
-          Choose a background color
+          Select your brand color
         </Accordion.Title>
           <Accordion.Content active={activeIndex === 3}>
             <div className="colorPicker">
@@ -201,7 +201,7 @@ vari = {
           Enable registration
         </Accordion.Title>
           <Accordion.Content active={activeIndex === 4}>
-            <Step5 handleReg={this.handleReg}/>
+            <Step5 handleReg={this.handleReg} />
           </Accordion.Content>
           {/* *********************REG******************** */}
         </Accordion>
