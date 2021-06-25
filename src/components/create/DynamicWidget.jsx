@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useRef, Component } from 'react';
-import { useOktaAuth } from '@okta/okta-react';
+import { withOktaAuth } from '@okta/okta-react';
 import * as OktaSignIn from '@okta/okta-signin-widget';
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 import gql from 'graphql-tag'
@@ -10,7 +10,7 @@ import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync'
 import config from '../../config';
 
 
-export default class DynamicWidget extends Component {
+export default  withOktaAuth(class DynamicWidget extends Component {
   constructor(props) {
     super(props);
     console.log('myprops:' + this.props);
@@ -172,11 +172,13 @@ export default class DynamicWidget extends Component {
 	// logo_url: String
   submitWidget = async() => {
     var token = JSON.parse(localStorage.getItem("okta-token-storage"))
+    var user = await this.props.oktaAuth.getUser()
     console.log(token.accessToken.value)
     this.vari.name = this.config.title
     this.vari.title = this.config.title
     this.vari.logo_url = this.config.logo
     this.vari.img = this.config.img
+    this.vari.owner = user.sub
     var graphqlClient = new AWSAppSyncClient({
       url: "https://my3tbw2e4ngbjaq3dxnbra3fhe.appsync-api.us-west-2.amazonaws.com/graphql",
       region: "us-west-2",
@@ -221,4 +223,4 @@ export default class DynamicWidget extends Component {
   render() {
     return <div><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><div ref={this.wrapper} /></div>;
   }
-}
+})
