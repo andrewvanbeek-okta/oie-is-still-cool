@@ -11,33 +11,35 @@ import { SketchPicker } from 'react-color';
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
+import { black } from 'colors';
 
 class DropdownSteps extends Component {
   constructor(props) {
     super(props);
     this.state = { activeIndex: 0 };
-
     this.handleSubmit = this.props.handleChangeToCustomTitle;
-    this.logoChange = this.props.handleLogoUrl
-    this.handleSocialAuth = this.props.handleSocialAuth
+    this.logoChange = this.props.handleLogoUrl;
+    this.handleSocialAuth = this.props.handleSocialAuth;
+    // this.handleCustomColor = this.props.handleCustomColor;
     this.value = `
     #okta-sign-in.auth-container .okta-sign-in-header {
         border-bottom-color: #ddd;
         background: red;
     }`.trim()
     console.log(this.props.handleChangeToCustomTitle)
+    this.handleCustomColorChange = this.handleCustomColorChange.bind(this)
   }
 
   onChange(newValue) {
     console.log("change", newValue);
    
   }
-  
 
-  // This is for the color picker
-  handleChangeComplete = (color) => {
-    this.setState({ background: color.hex });
-  };
+  handleCustomColorChange(newValue) {
+    console.log("change", newValue, this.props);
+    this.props.handleCustomColor(newValue.hex);
+    this.setState({customColor: newValue});
+  }
 
   // This is for the active dropdown option
   handleClick = (index) => (event) => {
@@ -60,8 +62,6 @@ class DropdownSteps extends Component {
       this.logoChange(resultEvent.info.url)
     }
   }
-
-
 
   showWidget = (field) => {
     var widget = cloudinary.createUploadWidget({
@@ -127,8 +127,8 @@ class DropdownSteps extends Component {
           <Accordion.Content active={activeIndex === 3}>
             <div className="colorPicker">
               <SketchPicker
-                color={this.state.background}
-                onChangeComplete={this.handleChangeComplete}
+                color={this.state.customColor}
+                onChangeComplete={this.handleCustomColorChange}
               />
             </div>
           </Accordion.Content>

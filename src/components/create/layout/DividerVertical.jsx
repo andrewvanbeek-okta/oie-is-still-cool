@@ -9,7 +9,8 @@ const DividerVertical = () => {
   const [customTitle, setCustomTitle] = useState();
   const [logoUrl, setLogoUrl] = useState();
   const [socialAuthProviders, setSocialAuthProviders] = useState();
-  const [widgetConfig, setWidgetConfig] = useState()
+  const [widgetConfig, setWidgetConfig] = useState();
+  const [customColor, setCustomColor] = useState();
 
 
   const handleChangeToCustomTitle = (e) => {
@@ -34,6 +35,11 @@ const DividerVertical = () => {
     setSocialAuthProviders(e)
   }
 
+  const handleCustomColor = (hex) => {
+    console.log("custom color is: ", hex)
+    setCustomColor(hex);
+  };
+
   const style = {
     display: 'flex',
     flexWrap: 'wrap',
@@ -52,10 +58,10 @@ const DividerVertical = () => {
       <Segment>
         <Grid columns={2} relaxed="very">
           <Grid.Column className="leftColumn">
-            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} handleLogoUrl={handleLogoUrl} handleSocialAuth={handleSocialAuth} />
+            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} handleLogoUrl={handleLogoUrl} handleSocialAuth={handleSocialAuth} handleCustomColor={handleCustomColor}/>
           </Grid.Column>
           <Grid.Column className="rightColumn">
-            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} socialAuthProviders={socialAuthProviders} />
+            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} socialAuthProviders={socialAuthProviders} customColor={customColor} handleCustomColor={handleCustomColor}/>
           </Grid.Column>
         </Grid>
         <Divider vertical>And</Divider>

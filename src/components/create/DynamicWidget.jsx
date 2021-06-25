@@ -144,6 +144,7 @@ export default class DynamicWidget extends Component {
     var logoUrl = nextProps.logo || this.config.logo
     var socialproviders = []
     console.log("this is the set title:", title)
+
     if(nextProps.socialAuthProviders) {
       if(nextProps.socialAuthProviders["Google"]) {
         socialproviders.push({ type: 'GOOGLE', id: '0oas1xf5skldmfdisof' })
@@ -171,6 +172,9 @@ export default class DynamicWidget extends Component {
               en: {
                 'primaryauth.title': title,
               },
+            },
+            colors: {
+              brand: this.props.customColor
             },
             authParams: {
               // To avoid redirect do not set "pkce" or "display" here. OKTA-335945
@@ -215,6 +219,11 @@ export default class DynamicWidget extends Component {
   }
 
   render() {
-    return <div ref={this.wrapper} />;
+
+    return (
+    <div>
+      <div ref={this.wrapper} />
+    </div>
+    )
   }
 }
