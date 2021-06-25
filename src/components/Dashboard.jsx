@@ -29,6 +29,7 @@ query ListWidgets(
         description
         link
         logo_url
+        meta
       }
       nextToken
     }

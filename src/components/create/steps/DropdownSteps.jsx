@@ -119,8 +119,6 @@ vari = {
     var code = this.refs.aceEditor.editor.getValue()
   }
 
-
-
   showWidget = (field) => {
     var widget = cloudinary.createUploadWidget({
       cloudName: 'styling-signin', uploadPreset: 'rj2rjbps', folder: 'widgetUpload', cropping: true
