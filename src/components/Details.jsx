@@ -46,12 +46,24 @@ const Details = () => {
     color: 'white',
   };
 
+  const textAreaStyle = {
+    width: '100%',
+    height: '100%',
+    resize: 'none',
+    boxSizing: 'border-box',
+    margin: '0',
+    background: '#1c1c22',
+    color: '#00b868',
+    outline: 'none',
+  };
+
   const data = {
     img: 'https://i.pinimg.com/originals/32/e2/41/32e2413585f1d2e0333c7dee3c4808bf.jpg',
     name: 'My Sign-in Design',
     meta: 'Created by Mark Vong',
     description: 'This design was inspired by all things fluffy and cute.',
     link: '#',
+    code: '{title:"My Sign-in Design", author: "Mark Vong", code: "<html></html>"}',
   };
 
   return (
@@ -65,6 +77,7 @@ const Details = () => {
           <Icon name="user circle" /> {data.meta}
         </Label>
         <p>{data.description}</p>
+        <textarea style={textAreaStyle}>{data.code}</textarea>
       </Container>
     )
   );

@@ -1,8 +1,8 @@
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 import DataCard from './DataCard';
-// import Details from './Details';
 
 const Dashboard = () => {
   const history = useHistory();
@@ -33,11 +33,9 @@ const Dashboard = () => {
   };
   for (let i = 0; i < 20; i += 1) {
     cards.push(
-      //   <Router>
       <Link to={`/${i}/details`}>
         <DataCard data={data} />
       </Link>,
-      //   </Router>,
     );
   }
 
@@ -46,7 +44,7 @@ const Dashboard = () => {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    margin: '0',
+    marginTop: '7rem',
     padding: '0',
   };
 
@@ -54,13 +52,7 @@ const Dashboard = () => {
   if (authState.isPending) return <div>Loading...</div>;
 
   // TODO: Add auth and make /dashboard a secureroute
-  return (
-    authState.isAuthenticated && (
-      <div style={style} className="dashboard">
-        {cards}
-      </div>
-    )
-  );
+  return authState.isAuthenticated && <Container style={style}>{cards}</Container>;
 };
 
 export default Dashboard;

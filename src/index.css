@@ -37,4 +37,5 @@ canvas {
   justify-content: center;
   align-items: center;
   color: crimson;
+  z-index: -1;
 }
