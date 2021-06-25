@@ -10,8 +10,10 @@ import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync'
 const DividerVertical = () => {
   const [customTitle, setCustomTitle] = useState();
   const [logoUrl, setLogoUrl] = useState();
-  const [socialAuthProviders, setSocialAuthProviders] = useState([]);
-  const [widgetConfig, setWidgetConfig] = useState()
+  const [socialAuthProviders, setSocialAuthProviders] = useState();
+  const [regi, setReg] = useState();
+  const [widgetConfig, setWidgetConfig] = useState();
+  const [customColor, setCustomColor] = useState();
 
 
   const handleChangeToCustomTitle = (e) => {
@@ -38,6 +40,16 @@ const DividerVertical = () => {
     // console.log("my social providers", e)
   }
 
+  const handleReg = (e) => {
+    console.log("Reg value: ", !e);
+    setReg(!e)
+  }
+
+  const handleCustomColor = (hex) => {
+    console.log("custom color is: ", hex)
+    setCustomColor(hex);
+  };
+
   const style = {
     display: 'flex',
     flexWrap: 'wrap',
@@ -56,10 +68,10 @@ const DividerVertical = () => {
       <Segment>
         <Grid columns={2} relaxed="very">
           <Grid.Column className="leftColumn">
-            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} handleLogoUrl={handleLogoUrl} handleSocialAuth={handleSocialAuth} />
+            <WidgetContainerLeft handleChangeToCustomTitle={handleChangeToCustomTitle} handleLogoUrl={handleLogoUrl} handleSocialAuth={handleSocialAuth} handleCustomColor={handleCustomColor} handleReg={handleReg}/>
           </Grid.Column>
           <Grid.Column className="rightColumn">
-            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} socialAuthProviders={socialAuthProviders} />
+            <WidgetContainerRight firstName={customTitle} logoUrl={logoUrl} socialAuthProviders={socialAuthProviders} customColor={customColor} handleCustomColor={handleCustomColor} handleReg={handleReg} regi={regi}/>
           </Grid.Column>
         </Grid>
         <Divider vertical>And</Divider>

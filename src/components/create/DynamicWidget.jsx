@@ -4,7 +4,7 @@ import { withOktaAuth } from '@okta/okta-react';
 import * as OktaSignIn from '@okta/okta-signin-widget';
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 import gql from 'graphql-tag'
-import { Accordion, Button, Icon } from 'semantic-ui-react';
+import { Accordion, Button, Icon, Form } from 'semantic-ui-react';
 import AWSAppSyncClient, { AUTH_TYPE } from 'aws-appsync'
 
 import config from '../../config';
@@ -15,6 +15,7 @@ export default  withOktaAuth(class DynamicWidget extends Component {
     super(props);
     console.log('myprops:' + this.props);
     this.wrapper = React.createRef();
+    this.thumbnail = null
     this.customTitle =
       this.props.customTitle || 'Sign In widget ready to Customize';
     const { issuer, clientId, redirectUri, scopes } = config.oidc;
@@ -25,7 +26,7 @@ export default  withOktaAuth(class DynamicWidget extends Component {
       redirectUri,
       logo: '/react.svg',
       features: {
-        registration: true, // Enable self-service registration flow
+        registration: this.regi,
       },
       idps: [],
       i18n: {
@@ -59,6 +60,7 @@ export default  withOktaAuth(class DynamicWidget extends Component {
       description
       link
       logo_url
+      meta
     }
   }
 `)
@@ -100,21 +102,7 @@ export default  withOktaAuth(class DynamicWidget extends Component {
           return '';
       }
     });
-    console.log('this is the set title:', title);
-    console.log('this is the social auth providers:', socialproviders);
-    console.log('actual idps', socials);
-    // if(nextProps.socialAuthProviders) {
-    //   if(nextProps.socialAuthProviders["Google"]) {
-    //     socialproviders.push({ type: 'GOOGLE', id: '0oas1xf5skldmfdisof' })
-    //   } if(nextProps.socialAuthProviders["Apple"]) {
-    //     socialproviders.push({ type: 'APPLE', id: '0oas1xdsfijdsofjiosj' })
-    //   } if(nextProps.socialAuthProviders["Facebook"]) {
-    //     socialproviders.push({ type: 'FACEBOOK', id: '0oas1xf5disojfiodshfoisd' })
-    //   } if(nextProps.socialAuthProviders["Linkedin"]) {
-    //     socialproviders.push({ type: 'LINKEDIN', id: '0oas1xf5disojfifsshfoisd' })
-    //   }
-    // }
-    console.log('this is our socials:', socialproviders);
+  
     this.config = {
       baseUrl: issuer.split('/oauth2')[0],
       clientId,
@@ -150,6 +138,40 @@ export default  withOktaAuth(class DynamicWidget extends Component {
       .catch((err) => {
         throw err;
       });
+    this.widget = new OktaSignIn({
+            baseUrl: issuer.split('/oauth2')[0],
+            clientId,
+            redirectUri,
+            logo: logoUrl,
+            features: {
+              registration: !this.props.regi, // Enable self-service registration flow
+            },
+            idps: socialproviders,
+            i18n: {
+              en: {
+                'primaryauth.title': title,
+              },
+            },
+            colors: {
+              brand: this.props.customColor
+            },
+            authParams: {
+              // To avoid redirect do not set "pkce" or "display" here. OKTA-335945
+              issuer,
+              scopes,
+            },
+            registration: {
+            },
+          });
+        this.widget.showSignInToGetTokens({
+      el: this.wrapper.current,
+      scopes,
+    }).then((tokens) => {
+      // Add tokens to storage
+      oktaAuth.handleLoginRedirect(tokens);
+    }).catch((err) => {
+      throw err;
+    });
 
     return () => widget.remove();
   }
@@ -157,6 +179,8 @@ export default  withOktaAuth(class DynamicWidget extends Component {
   vari = {
     "name": "jk",
   }
+
+ 
 
   // title: String
 	// owner: String
@@ -170,15 +194,17 @@ export default  withOktaAuth(class DynamicWidget extends Component {
 	// description: String
 	// link: String
 	// logo_url: String
-  submitWidget = async() => {
+  submitWidget = async(thumbmail) => {
     var token = JSON.parse(localStorage.getItem("okta-token-storage"))
     var user = await this.props.oktaAuth.getUser()
     console.log(token.accessToken.value)
     this.vari.name = this.config.title
     this.vari.title = this.config.title
     this.vari.logo_url = this.config.logo
-    this.vari.img = this.config.img
+    console.log("Why are you not a thumb:", this.config.thumbnail)
+    this.vari.img = thumbmail
     this.vari.owner = user.sub
+    
     var graphqlClient = new AWSAppSyncClient({
       url: "https://my3tbw2e4ngbjaq3dxnbra3fhe.appsync-api.us-west-2.amazonaws.com/graphql",
       region: "us-west-2",
@@ -194,6 +220,26 @@ export default  withOktaAuth(class DynamicWidget extends Component {
     } catch(e) {
       console.log(e)
     }
+  }
+
+
+  checkUploadResultThumbnail = (resultEvent, config) => {
+    console.log(this)
+    console.log(resultEvent)
+    if (resultEvent.event == "success") {
+      console.log(resultEvent.info.url)
+      this.thumbnail = resultEvent.info.url
+      this.submitWidget(this.thumbnail)
+    }
+  }
+
+  showWidgetThumbnail = (field) => {
+    var config = this.config
+    var widget = cloudinary.createUploadWidget({
+      cloudName: 'styling-signin', uploadPreset: 'rj2rjbps', folder: 'widgetUpload', cropping: true
+    },
+      (error, result) => { this.checkUploadResultThumbnail(result, config) })
+    widget.open()
   }
 
   componentDidMount() {
@@ -221,6 +267,16 @@ export default  withOktaAuth(class DynamicWidget extends Component {
   }
 
   render() {
-    return <div><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><div ref={this.wrapper} /></div>;
+    return <div><Form>
+    <Form.Field>
+      <label>First Name</label>
+      <input placeholder='First Name' />
+    </Form.Field>
+    <Form.Field>
+      <label>Last Name</label>
+      <input placeholder='Last Name' />
+    </Form.Field>
+    <Button type='submit'>Submit</Button>
+  </Form><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><Button onClick={this.showWidgetThumbnail}floated='right'>Take a Picture</Button><div ref={this.wrapper} /></div>;
   }
 })
