@@ -20,8 +20,19 @@ class DropdownSteps extends Component {
     this.handleSubmit = this.props.handleChangeToCustomTitle;
     this.logoChange = this.props.handleLogoUrl
     this.handleSocialAuth = this.props.handleSocialAuth
+    this.value = `
+    #okta-sign-in.auth-container .okta-sign-in-header {
+        border-bottom-color: #ddd;
+        background: red;
+    }`.trim()
     console.log(this.props.handleChangeToCustomTitle)
   }
+
+  onChange(newValue) {
+    console.log("change", newValue);
+   
+  }
+  
 
   // This is for the color picker
   handleChangeComplete = (color) => {
@@ -136,7 +147,7 @@ class DropdownSteps extends Component {
           </Accordion.Content>
           {/* *********************REG******************** */}
         </Accordion>
-
+     
         <h1>Custom CSS</h1>
         <Button> Apply</Button>
         <br />
@@ -145,7 +156,9 @@ class DropdownSteps extends Component {
           id="ace"
           style={{ color: `${this.state.customStyle}` }}
           className="editor"
-          mode="java"
+          onChange={this.onChange}
+          mode="css"
+          value={this.value}
           theme="github"
           name="UNIQUE_ID_OF_DIV"
           editorProps={{ $blockScrolling: true }}

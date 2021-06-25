@@ -10,8 +10,6 @@ import Profile from './components/Profile';
 import Landing from './components/LoginContainer';
 import AnimatedBackground from './components/AnimatedBackground';
 import './index.css';
-import DashboardCopy from './components/DashboardCopy';
-import SubmitData from './components/SubmitDataExample';
 import DividerVertical from './components/create/layout/DividerVertical';
 import Details from './components/Details';
 

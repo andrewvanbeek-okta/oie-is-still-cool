@@ -83,7 +83,7 @@ const Dashboard = () => {
     for (let i = 0; i < response.data.listWidgets.items.length; i += 1) {
       var card = response.data.listWidgets.items[i]
       localCards.push(<Link to={`/${i}/details`}>
-      <DataCard data={data} />
+      <DataCard data={card} />
     </Link>);
     }
     console.log(localCards)
