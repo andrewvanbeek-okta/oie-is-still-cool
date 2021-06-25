@@ -38,3 +38,7 @@ canvas {
   align-items: center;
   color: crimson;
 }
+
+#imageWidget {
+  z-index: 100;
+}

@@ -13,6 +13,7 @@ import AnimatedBackground from './components/AnimatedBackground';
 import './index.css';
 import Dashboard from './components/Dashboard';
 import DashboardCopy from './components/DashboardCopy';
+import SubmitData from './components/SubmitDataExample';
 
 const oktaAuth = new OktaAuth(config.oidc);
 
@@ -36,6 +37,7 @@ const App = () => {
         <SecureRoute path="/profile" component={Profile} />
         <SecureRoute path="/dashboard" component={Dashboard} />
         <SecureRoute path="/copy" component={DashboardCopy} />
+        <SecureRoute path="/submit" component={SubmitData} />
       </Switch>
       <AnimatedBackground />
       <div className="overlay">
