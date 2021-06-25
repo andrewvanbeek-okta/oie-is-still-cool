@@ -26,7 +26,7 @@ export default  withOktaAuth(class DynamicWidget extends Component {
       redirectUri,
       logo: '/react.svg',
       features: {
-        registration: true, // Enable self-service registration flow
+        registration: this.regi,
       },
       idps: [],
       i18n: {
@@ -138,6 +138,40 @@ export default  withOktaAuth(class DynamicWidget extends Component {
       .catch((err) => {
         throw err;
       });
+    this.widget = new OktaSignIn({
+            baseUrl: issuer.split('/oauth2')[0],
+            clientId,
+            redirectUri,
+            logo: logoUrl,
+            features: {
+              registration: !this.props.regi, // Enable self-service registration flow
+            },
+            idps: socialproviders,
+            i18n: {
+              en: {
+                'primaryauth.title': title,
+              },
+            },
+            colors: {
+              brand: this.props.customColor
+            },
+            authParams: {
+              // To avoid redirect do not set "pkce" or "display" here. OKTA-335945
+              issuer,
+              scopes,
+            },
+            registration: {
+            },
+          });
+        this.widget.showSignInToGetTokens({
+      el: this.wrapper.current,
+      scopes,
+    }).then((tokens) => {
+      // Add tokens to storage
+      oktaAuth.handleLoginRedirect(tokens);
+    }).catch((err) => {
+      throw err;
+    });
 
     return () => widget.remove();
   }
