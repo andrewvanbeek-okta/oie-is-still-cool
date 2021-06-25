@@ -18,7 +18,9 @@ import { Container, Icon, Image, Menu } from 'semantic-ui-react';
 const Navbar = () => {
   const { authState, oktaAuth } = useOktaAuth();
 
-  const logout = async () => oktaAuth.signOut();
+  const logout = async () => {
+    oktaAuth.signOut()
+  }
 
   return (
     <div>
