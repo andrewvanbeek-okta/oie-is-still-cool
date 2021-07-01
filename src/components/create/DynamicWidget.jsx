@@ -228,21 +228,12 @@ export default  withOktaAuth(class DynamicWidget extends Component {
     return () => widget.remove();
   }
 
+
   componentWillUnmount() {
     this.widget.remove();
   }
 
   render() {
-    return <div><Form>
-    <Form.Field>
-      <label>First Name</label>
-      <input placeholder='First Name' />
-    </Form.Field>
-    <Form.Field>
-      <label>Last Name</label>
-      <input placeholder='Last Name' />
-    </Form.Field>
-    <Button type='submit'>Submit</Button>
-  </Form><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><Button onClick={this.showWidgetThumbnail}floated='right'>Take a Picture</Button><div ref={this.wrapper} /></div>;
+    return <div><Button onClick={this.submitWidget}floated='right'>Right Floated</Button><Button onClick={this.showWidgetThumbnail}floated='right'>Take a Picture</Button><div ref={this.wrapper} /></div>;
   }
 })

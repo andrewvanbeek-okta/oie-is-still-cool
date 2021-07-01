@@ -27,8 +27,8 @@ const DividerVertical = () => {
     // console.log("top parent")
     // console.log("input value:", e);
     setLogoUrl(e)
-    // widgetConfig.logoUrl = e
-    // setWidgetConfig(widgetConfig)
+    widgetConfig.logoUrl = e
+    setWidgetConfig(widgetConfig)
   };
 
   const handleSocialAuth = (e) => {
